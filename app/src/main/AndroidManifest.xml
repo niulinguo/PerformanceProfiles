@@ -114,6 +114,10 @@
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="dc4a548d8bbaf00f102727b60fbfc930" />
     </application>
 
 </manifest>

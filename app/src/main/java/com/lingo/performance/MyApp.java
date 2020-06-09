@@ -2,10 +2,18 @@ package com.lingo.performance;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Process;
 import android.text.TextUtils;
 
+import androidx.multidex.MultiDex;
+
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.commonsdk.UMConfigure;
 
@@ -21,6 +29,12 @@ import cn.jpush.android.ups.UPSRegisterCallBack;
 public class MyApp extends Application {
 
     @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
+
+    @Override
     public void onCreate() {
         super.onCreate();
 
@@ -29,7 +43,7 @@ public class MyApp extends Application {
         // 获取当前包名
         String packageName = context.getPackageName();
         // 获取当前进程名
-        String processName = getProcessName(android.os.Process.myPid());
+        String processName = getProcessName(Process.myPid());
         // 设置是否为上报进程
         CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(context);
         strategy.setUploadProcess(processName == null || processName.equals(packageName));
@@ -49,6 +63,7 @@ public class MyApp extends Application {
          */
         UMConfigure.setLogEnabled(BuildConfig.DEBUG);
 
+        String deviceId = DeviceIdUtils.getDeviceId(context);
 
         JPushInterface.setDebugMode(BuildConfig.DEBUG);
         JPushUPSManager.registerToken(context, "5051f0dbbd37c2283785d514", "5051f0dbbd37c2283785d514", "e96773e7482fc28a2769f0cc", new UPSRegisterCallBack() {
@@ -57,6 +72,7 @@ public class MyApp extends Application {
 
             }
         });
+        JPushInterface.setAlias(context, 0, deviceId);
 
 
         //在使用SDK各组件之前初始化context信息，传入ApplicationContext
@@ -64,6 +80,25 @@ public class MyApp extends Application {
         //自4.3.0起，百度地图SDK所有接口均支持百度坐标和国测局坐标，用此方法设置您使用的坐标类型.
         //包括BD09LL和GCJ02两种坐标，默认是BD09LL坐标。
         SDKInitializer.setCoordType(CoordType.BD09LL);
+
+
+        AMapLocationClient locationClient = new AMapLocationClient(context);
+        locationClient.setLocationListener(new AMapLocationListener() {
+            @Override
+            public void onLocationChanged(AMapLocation aMapLocation) {
+
+            }
+        });
+        AMapLocationClientOption locationOption = new AMapLocationClientOption();
+        locationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+        locationOption.setOnceLocation(true);
+        locationClient.setLocationOption(locationOption);
+        locationClient.startLocation();
+
+
+        Fresco.initialize(context);
+
+
     }
 
     /**

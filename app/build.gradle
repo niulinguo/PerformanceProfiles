@@ -12,6 +12,8 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
+        multiDexEnabled true
+
         ndk {
             // 设置支持的SO库架构
             abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
@@ -40,6 +42,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.1.0'
 
@@ -54,4 +57,10 @@ dependencies {
 
     implementation 'cn.jiguang.sdk:jpush:3.6.6'
     implementation 'cn.jiguang.sdk:jcore:2.3.8'
+
+    implementation 'com.amap.api:map2d:6.0.0'
+    implementation 'com.amap.api:search:7.3.0'
+    implementation 'com.amap.api:location:4.9.0'
+
+    implementation 'com.facebook.fresco:fresco:2.2.0'
 }

@@ -47,3 +47,13 @@ TotalTime: 169
 WaitTime: 172
 Complete
 ```
+
+TotalTime: 所有 Activity 启动耗时
+WaitTime: AMS 启动 Activity 的总耗时
+
+adb 命令测量启动耗时
+1. 线下使用方便，不能带到线上
+2. 非严谨、精确时间
+
+手动打点
+
