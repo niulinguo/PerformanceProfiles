@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ESNext",
+    "sourceMap": true,
+    "jsx": "react",
+    "baseUrl": "./",
+    "paths": {
+      "styled-components": ["src/lib/styled-components"],
+      "node_modules/styled-components/native": [
+        "node_modules/@types/styled-components/native"
+      ],
+      "lib/*": ["src/lib/*"],
+      "views/*": ["src/views/*"],
+      "store/*": ["src/store/*"],
+      "components/*": ["src/components/*"],
+      "*": ["types/*"]
+    },
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "allowJs": false,
+    "skipLibCheck": true,
+    "resolveJsonModule": true
+  },
+  "exclude": [
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js",
+    "jest.config.js"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+    "fontSize": "14px",
+	"graphVizOptions": {
+		"G": {
+			"rankdir": "LR"
+		}
+	},
+	"tsConfig": "./tsconfig.json",
+	"fileExtensions": ["js", "ts", "tsx", "json"],
+	"detectiveOptions": {
+        "ts": {
+            "mixedImports": true,
+            "skipTypeImports": true
+        }
+    },
+    "excludeRegExp": ["types.ts"]
+}
